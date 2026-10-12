@@ -1,0 +1,221 @@
+client_id,client_name,investor_type,region,sector,credit_rating,annual_revenue_usd_m,leverage_ratio,pd_1y,kyc_status,reference_as_of
+CLI00001,Synthetic Investor 0001,Insurance,North America,Industrials,B,43.53,2.85,0.054722,Pending Review,2026-10-12
+CLI00002,Synthetic Investor 0002,Bank,Latin America,Technology,AAA,131.19,3.99,0.03538,Verified,2026-10-12
+CLI00003,Synthetic Investor 0003,Family Office,Asia-Pacific,Technology,BB,1160.56,3.81,0.008952,Verified,2026-10-12
+CLI00004,Synthetic Investor 0004,Insurance,Asia-Pacific,Consumer,BBB,597.95,1.29,0.01566,Verified,2026-10-12
+CLI00005,Synthetic Investor 0005,Insurance,Latin America,Healthcare,BBB,366.34,2.5,0.04584,Verified,2026-10-12
+CLI00006,Synthetic Investor 0006,Family Office,Latin America,Energy,BB,56.68,2.3,0.02019,Verified,2026-10-12
+CLI00007,Synthetic Investor 0007,Family Office,North America,Industrials,BBB,109.71,1.79,0.046432,Verified,2026-10-12
+CLI00008,Synthetic Investor 0008,Bank,North America,Healthcare,BB,50.6,1.96,0.134294,Verified,2026-10-12
+CLI00009,Synthetic Investor 0009,Family Office,Europe,Industrials,BBB,2179.61,2.66,0.079429,Verified,2026-10-12
+CLI00010,Synthetic Investor 0010,Bank,Latin America,Utilities,AA,78.71,3.96,0.061336,Verified,2026-10-12
+CLI00011,Synthetic Investor 0011,Pension Fund,Asia-Pacific,Industrials,BB,29.59,1.44,0.034009,Verified,2026-10-12
+CLI00012,Synthetic Investor 0012,Hedge Fund,North America,Healthcare,B,93.14,2.73,0.021537,Verified,2026-10-12
+CLI00013,Synthetic Investor 0013,Hedge Fund,North America,Technology,B,168.68,0.35,0.020587,Verified,2026-10-12
+CLI00014,Synthetic Investor 0014,Insurance,Europe,Consumer,AA,104.98,2.48,0.023983,Verified,2026-10-12
+CLI00015,Synthetic Investor 0015,Asset Manager,Europe,Energy,AA,177.77,0.7,0.032712,Verified,2026-10-12
+CLI00016,Synthetic Investor 0016,Family Office,Latin America,Consumer,BBB,113.4,2.34,0.004051,Verified,2026-10-12
+CLI00017,Synthetic Investor 0017,Bank,Asia-Pacific,Technology,B,277.54,1.01,0.001831,Pending Review,2026-10-12
+CLI00018,Synthetic Investor 0018,Asset Manager,North America,Technology,BB,143.23,3.08,0.110244,Verified,2026-10-12
+CLI00019,Synthetic Investor 0019,Asset Manager,North America,Financials,BBB,417.45,2.46,0.046668,Verified,2026-10-12
+CLI00020,Synthetic Investor 0020,Asset Manager,Europe,Utilities,BB,45.17,1.67,0.059139,Verified,2026-10-12
+CLI00021,Synthetic Investor 0021,Asset Manager,Latin America,Energy,A,85.5,2.0,0.039914,Verified,2026-10-12
+CLI00022,Synthetic Investor 0022,Family Office,North America,Industrials,BBB,95.78,2.05,0.061178,Verified,2026-10-12
+CLI00023,Synthetic Investor 0023,Insurance,North America,Energy,BBB,632.42,2.95,0.046297,Verified,2026-10-12
+CLI00024,Synthetic Investor 0024,Asset Manager,Europe,Technology,BBB,200.15,0.13,0.01678,Verified,2026-10-12
+CLI00025,Synthetic Investor 0025,Insurance,Latin America,Energy,A,100.88,1.59,0.015033,Verified,2026-10-12
+CLI00026,Synthetic Investor 0026,Insurance,North America,Healthcare,B,116.83,1.44,0.017031,Verified,2026-10-12
+CLI00027,Synthetic Investor 0027,Hedge Fund,North America,Technology,A,841.73,2.15,0.056968,Verified,2026-10-12
+CLI00028,Synthetic Investor 0028,Family Office,Latin America,Healthcare,A,94.3,1.5,0.05117,Verified,2026-10-12
+CLI00029,Synthetic Investor 0029,Insurance,Latin America,Technology,AAA,26.69,2.81,0.035663,Verified,2026-10-12
+CLI00030,Synthetic Investor 0030,Hedge Fund,North America,Healthcare,A,1017.88,1.07,0.006219,Verified,2026-10-12
+CLI00031,Synthetic Investor 0031,Family Office,Europe,Technology,BBB,150.47,3.39,0.011228,Verified,2026-10-12
+CLI00032,Synthetic Investor 0032,Pension Fund,Europe,Industrials,BBB,90.24,2.74,0.04806,Verified,2026-10-12
+CLI00033,Synthetic Investor 0033,Bank,Europe,Financials,AA,156.94,0.32,0.007393,Verified,2026-10-12
+CLI00034,Synthetic Investor 0034,Family Office,North America,Healthcare,BB,72.61,2.69,0.007909,Verified,2026-10-12
+CLI00035,Synthetic Investor 0035,Hedge Fund,North America,Utilities,A,543.91,2.12,0.003326,Verified,2026-10-12
+CLI00036,Synthetic Investor 0036,Insurance,Asia-Pacific,Energy,BBB,54.63,0.1,0.005825,Verified,2026-10-12
+CLI00037,Synthetic Investor 0037,Insurance,North America,Industrials,A,159.3,0.95,0.022097,Verified,2026-10-12
+CLI00038,Synthetic Investor 0038,Bank,Asia-Pacific,Utilities,BBB,210.97,4.78,0.027968,Verified,2026-10-12
+CLI00039,Synthetic Investor 0039,Hedge Fund,Latin America,Consumer,AA,131.61,2.19,0.018181,Verified,2026-10-12
+CLI00040,Synthetic Investor 0040,Insurance,Europe,Technology,A,37.9,0.85,0.013483,Verified,2026-10-12
+CLI00041,Synthetic Investor 0041,Insurance,Europe,Healthcare,B,422.73,2.8,0.039935,Verified,2026-10-12
+CLI00042,Synthetic Investor 0042,Bank,Asia-Pacific,Consumer,BBB,208.17,4.95,0.000969,Verified,2026-10-12
+CLI00043,Synthetic Investor 0043,Pension Fund,North America,Healthcare,BBB,207.49,1.66,0.11688,Pending Review,2026-10-12
+CLI00044,Synthetic Investor 0044,Hedge Fund,North America,Technology,A,999.52,3.18,0.005144,Pending Review,2026-10-12
+CLI00045,Synthetic Investor 0045,Insurance,Latin America,Industrials,A,87.06,2.13,0.038142,Verified,2026-10-12
+CLI00046,Synthetic Investor 0046,Pension Fund,Europe,Technology,BB,344.89,1.64,0.034826,Verified,2026-10-12
+CLI00047,Synthetic Investor 0047,Family Office,North America,Healthcare,A,506.18,2.94,0.052117,Verified,2026-10-12
+CLI00048,Synthetic Investor 0048,Bank,Latin America,Energy,BBB,232.85,2.85,0.014323,Verified,2026-10-12
+CLI00049,Synthetic Investor 0049,Insurance,North America,Energy,B,89.14,0.25,0.112323,Verified,2026-10-12
+CLI00050,Synthetic Investor 0050,Hedge Fund,North America,Financials,CCC,621.71,2.17,0.022853,Verified,2026-10-12
+CLI00051,Synthetic Investor 0051,Bank,Europe,Financials,BBB,771.46,3.84,0.027159,Verified,2026-10-12
+CLI00052,Synthetic Investor 0052,Pension Fund,Asia-Pacific,Financials,BBB,128.65,0.44,0.018133,Verified,2026-10-12
+CLI00053,Synthetic Investor 0053,Bank,Europe,Utilities,BBB,631.42,0.1,0.001599,Verified,2026-10-12
+CLI00054,Synthetic Investor 0054,Hedge Fund,Asia-Pacific,Technology,A,351.72,5.0,0.074688,Verified,2026-10-12
+CLI00055,Synthetic Investor 0055,Asset Manager,Asia-Pacific,Energy,B,327.89,1.76,0.098897,Verified,2026-10-12
+CLI00056,Synthetic Investor 0056,Insurance,North America,Consumer,BBB,1115.88,3.28,0.005541,Verified,2026-10-12
+CLI00057,Synthetic Investor 0057,Bank,North America,Healthcare,BBB,326.62,3.68,0.013457,Verified,2026-10-12
+CLI00058,Synthetic Investor 0058,Family Office,Latin America,Consumer,A,341.38,4.04,0.033208,Verified,2026-10-12
+CLI00059,Synthetic Investor 0059,Bank,Europe,Financials,A,428.63,2.97,0.068089,Pending Review,2026-10-12
+CLI00060,Synthetic Investor 0060,Family Office,Asia-Pacific,Consumer,A,522.38,1.14,0.037493,Verified,2026-10-12
+CLI00061,Synthetic Investor 0061,Asset Manager,Europe,Energy,BB,226.65,2.52,0.010878,Verified,2026-10-12
+CLI00062,Synthetic Investor 0062,Asset Manager,Europe,Industrials,B,59.08,5.15,0.005839,Verified,2026-10-12
+CLI00063,Synthetic Investor 0063,Hedge Fund,North America,Financials,A,201.82,0.1,0.14094,Verified,2026-10-12
+CLI00064,Synthetic Investor 0064,Family Office,North America,Utilities,A,643.53,2.5,0.031153,Verified,2026-10-12
+CLI00065,Synthetic Investor 0065,Pension Fund,Europe,Energy,CCC,1562.61,1.53,0.107161,Verified,2026-10-12
+CLI00066,Synthetic Investor 0066,Asset Manager,Latin America,Energy,A,228.59,2.35,0.152853,Verified,2026-10-12
+CLI00067,Synthetic Investor 0067,Hedge Fund,North America,Healthcare,A,139.46,3.47,0.091328,Pending Review,2026-10-12
+CLI00068,Synthetic Investor 0068,Asset Manager,Asia-Pacific,Consumer,BB,121.24,1.98,0.03642,Verified,2026-10-12
+CLI00069,Synthetic Investor 0069,Insurance,Latin America,Financials,BBB,339.96,1.33,0.042617,Verified,2026-10-12
+CLI00070,Synthetic Investor 0070,Pension Fund,Asia-Pacific,Energy,A,106.76,1.09,0.024279,Verified,2026-10-12
+CLI00071,Synthetic Investor 0071,Asset Manager,Europe,Financials,BB,381.23,2.84,0.015586,Verified,2026-10-12
+CLI00072,Synthetic Investor 0072,Family Office,Europe,Healthcare,AA,110.03,0.96,0.004237,Verified,2026-10-12
+CLI00073,Synthetic Investor 0073,Hedge Fund,North America,Healthcare,BBB,238.63,3.23,0.09418,Verified,2026-10-12
+CLI00074,Synthetic Investor 0074,Pension Fund,Asia-Pacific,Consumer,BB,89.41,0.77,0.038041,Verified,2026-10-12
+CLI00075,Synthetic Investor 0075,Insurance,Asia-Pacific,Financials,BBB,853.05,1.9,0.020266,Verified,2026-10-12
+CLI00076,Synthetic Investor 0076,Asset Manager,Latin America,Healthcare,AAA,70.76,2.97,0.039112,Verified,2026-10-12
+CLI00077,Synthetic Investor 0077,Pension Fund,Latin America,Energy,BBB,54.04,2.6,0.039725,Verified,2026-10-12
+CLI00078,Synthetic Investor 0078,Hedge Fund,Latin America,Utilities,BBB,42.31,0.73,0.0005,Verified,2026-10-12
+CLI00079,Synthetic Investor 0079,Bank,Latin America,Industrials,B,668.24,1.85,0.008776,Verified,2026-10-12
+CLI00080,Synthetic Investor 0080,Hedge Fund,North America,Healthcare,BBB,112.48,3.15,0.021365,Verified,2026-10-12
+CLI00081,Synthetic Investor 0081,Family Office,Asia-Pacific,Consumer,BBB,788.78,1.3,0.02262,Verified,2026-10-12
+CLI00082,Synthetic Investor 0082,Asset Manager,Europe,Utilities,B,9.32,2.17,0.060185,Verified,2026-10-12
+CLI00083,Synthetic Investor 0083,Asset Manager,North America,Industrials,BB,122.49,2.42,0.056398,Verified,2026-10-12
+CLI00084,Synthetic Investor 0084,Pension Fund,North America,Consumer,AA,188.42,2.91,0.081373,Verified,2026-10-12
+CLI00085,Synthetic Investor 0085,Bank,North America,Financials,CCC,168.82,1.16,0.005239,Verified,2026-10-12
+CLI00086,Synthetic Investor 0086,Pension Fund,Asia-Pacific,Technology,BBB,192.18,2.51,0.021084,Verified,2026-10-12
+CLI00087,Synthetic Investor 0087,Hedge Fund,Europe,Energy,BB,96.38,2.67,0.057079,Verified,2026-10-12
+CLI00088,Synthetic Investor 0088,Asset Manager,Europe,Industrials,A,378.25,2.55,0.026137,Verified,2026-10-12
+CLI00089,Synthetic Investor 0089,Pension Fund,Latin America,Consumer,BBB,5.18,1.96,0.004237,Verified,2026-10-12
+CLI00090,Synthetic Investor 0090,Bank,Europe,Technology,AA,20.27,0.42,0.033819,Verified,2026-10-12
+CLI00091,Synthetic Investor 0091,Pension Fund,North America,Energy,A,645.63,1.28,0.00737,Verified,2026-10-12
+CLI00092,Synthetic Investor 0092,Pension Fund,North America,Healthcare,A,132.65,3.74,0.03146,Verified,2026-10-12
+CLI00093,Synthetic Investor 0093,Insurance,Asia-Pacific,Healthcare,AA,338.75,1.84,0.04304,Verified,2026-10-12
+CLI00094,Synthetic Investor 0094,Bank,Asia-Pacific,Technology,B,611.83,1.92,0.0178,Verified,2026-10-12
+CLI00095,Synthetic Investor 0095,Hedge Fund,Europe,Consumer,BB,126.45,3.92,0.041577,Verified,2026-10-12
+CLI00096,Synthetic Investor 0096,Pension Fund,Europe,Energy,BB,33.45,1.7,0.123268,Verified,2026-10-12
+CLI00097,Synthetic Investor 0097,Bank,Latin America,Financials,CCC,50.39,3.37,0.01985,Verified,2026-10-12
+CLI00098,Synthetic Investor 0098,Bank,Europe,Industrials,BB,495.81,0.99,0.012189,Verified,2026-10-12
+CLI00099,Synthetic Investor 0099,Family Office,Latin America,Consumer,AAA,178.09,0.89,0.017732,Pending Review,2026-10-12
+CLI00100,Synthetic Investor 0100,Insurance,Latin America,Utilities,BBB,117.97,5.07,0.021451,Verified,2026-10-12
+CLI00101,Synthetic Investor 0101,Hedge Fund,Asia-Pacific,Utilities,A,364.83,3.67,0.026966,Verified,2026-10-12
+CLI00102,Synthetic Investor 0102,Insurance,Latin America,Consumer,A,51.42,1.23,0.009006,Verified,2026-10-12
+CLI00103,Synthetic Investor 0103,Pension Fund,Asia-Pacific,Healthcare,B,263.2,0.43,0.05492,Verified,2026-10-12
+CLI00104,Synthetic Investor 0104,Hedge Fund,Europe,Technology,AA,25.59,0.86,0.015915,Verified,2026-10-12
+CLI00105,Synthetic Investor 0105,Asset Manager,Europe,Financials,BBB,155.4,2.15,0.072107,Pending Review,2026-10-12
+CLI00106,Synthetic Investor 0106,Bank,Latin America,Energy,A,220.95,2.86,0.017075,Verified,2026-10-12
+CLI00107,Synthetic Investor 0107,Bank,North America,Financials,CCC,43.58,3.65,0.090827,Verified,2026-10-12
+CLI00108,Synthetic Investor 0108,Hedge Fund,North America,Technology,BB,312.49,2.6,0.004746,Verified,2026-10-12
+CLI00109,Synthetic Investor 0109,Hedge Fund,Europe,Technology,BB,176.94,1.75,0.069808,Pending Review,2026-10-12
+CLI00110,Synthetic Investor 0110,Insurance,Europe,Energy,B,49.07,1.88,0.026376,Verified,2026-10-12
+CLI00111,Synthetic Investor 0111,Hedge Fund,Asia-Pacific,Technology,BBB,79.14,4.29,0.02157,Verified,2026-10-12
+CLI00112,Synthetic Investor 0112,Hedge Fund,North America,Industrials,A,336.66,3.18,0.0431,Verified,2026-10-12
+CLI00113,Synthetic Investor 0113,Bank,Latin America,Industrials,A,41.02,2.37,0.007607,Verified,2026-10-12
+CLI00114,Synthetic Investor 0114,Asset Manager,Asia-Pacific,Energy,AA,246.73,1.65,0.0802,Expired,2026-10-12
+CLI00115,Synthetic Investor 0115,Family Office,Europe,Energy,BBB,274.67,3.03,0.021027,Verified,2026-10-12
+CLI00116,Synthetic Investor 0116,Pension Fund,Latin America,Financials,B,1334.97,1.48,0.019076,Verified,2026-10-12
+CLI00117,Synthetic Investor 0117,Bank,Latin America,Technology,BBB,326.84,2.5,0.07459,Verified,2026-10-12
+CLI00118,Synthetic Investor 0118,Pension Fund,Latin America,Healthcare,B,616.3,4.69,0.070855,Pending Review,2026-10-12
+CLI00119,Synthetic Investor 0119,Family Office,North America,Industrials,AA,168.72,0.1,0.069768,Verified,2026-10-12
+CLI00120,Synthetic Investor 0120,Insurance,North America,Utilities,A,636.18,2.85,0.111773,Verified,2026-10-12
+CLI00121,Synthetic Investor 0121,Bank,Latin America,Energy,A,214.92,2.66,0.043427,Verified,2026-10-12
+CLI00122,Synthetic Investor 0122,Insurance,Europe,Financials,BB,371.86,2.99,0.11753,Verified,2026-10-12
+CLI00123,Synthetic Investor 0123,Insurance,Asia-Pacific,Energy,AA,36.9,2.36,0.08002,Verified,2026-10-12
+CLI00124,Synthetic Investor 0124,Hedge Fund,North America,Consumer,A,862.97,0.76,0.058725,Expired,2026-10-12
+CLI00125,Synthetic Investor 0125,Insurance,Europe,Utilities,B,269.34,2.7,0.058138,Verified,2026-10-12
+CLI00126,Synthetic Investor 0126,Hedge Fund,Asia-Pacific,Healthcare,BBB,180.22,3.25,0.017238,Verified,2026-10-12
+CLI00127,Synthetic Investor 0127,Pension Fund,Asia-Pacific,Healthcare,A,332.27,2.83,0.031695,Verified,2026-10-12
+CLI00128,Synthetic Investor 0128,Insurance,Asia-Pacific,Consumer,BB,190.17,3.08,0.018409,Verified,2026-10-12
+CLI00129,Synthetic Investor 0129,Insurance,Latin America,Financials,BBB,132.34,2.1,0.018376,Verified,2026-10-12
+CLI00130,Synthetic Investor 0130,Family Office,Latin America,Financials,BBB,134.93,3.25,0.03578,Pending Review,2026-10-12
+CLI00131,Synthetic Investor 0131,Pension Fund,Latin America,Industrials,BB,503.26,4.03,0.008564,Verified,2026-10-12
+CLI00132,Synthetic Investor 0132,Insurance,Latin America,Technology,B,309.69,2.8,0.074258,Verified,2026-10-12
+CLI00133,Synthetic Investor 0133,Asset Manager,North America,Financials,A,3.7,0.43,0.024813,Expired,2026-10-12
+CLI00134,Synthetic Investor 0134,Pension Fund,North America,Financials,A,3493.07,2.26,0.03272,Verified,2026-10-12
+CLI00135,Synthetic Investor 0135,Hedge Fund,North America,Industrials,BB,117.64,4.51,0.012207,Expired,2026-10-12
+CLI00136,Synthetic Investor 0136,Family Office,Europe,Consumer,BBB,47.22,0.28,0.010221,Verified,2026-10-12
+CLI00137,Synthetic Investor 0137,Hedge Fund,Europe,Financials,BB,168.93,3.73,0.031557,Verified,2026-10-12
+CLI00138,Synthetic Investor 0138,Bank,Latin America,Consumer,BBB,148.3,1.27,0.032005,Verified,2026-10-12
+CLI00139,Synthetic Investor 0139,Asset Manager,Europe,Consumer,AA,253.54,1.89,0.090559,Verified,2026-10-12
+CLI00140,Synthetic Investor 0140,Family Office,North America,Financials,BBB,382.5,2.83,0.002907,Verified,2026-10-12
+CLI00141,Synthetic Investor 0141,Family Office,Europe,Energy,BB,304.48,1.81,0.023039,Verified,2026-10-12
+CLI00142,Synthetic Investor 0142,Asset Manager,Europe,Consumer,B,1479.48,2.68,0.013999,Verified,2026-10-12
+CLI00143,Synthetic Investor 0143,Hedge Fund,Europe,Consumer,BB,270.32,0.99,0.027297,Verified,2026-10-12
+CLI00144,Synthetic Investor 0144,Family Office,Europe,Consumer,BB,246.79,3.11,0.006737,Verified,2026-10-12
+CLI00145,Synthetic Investor 0145,Family Office,Asia-Pacific,Utilities,BB,121.46,5.95,0.081734,Verified,2026-10-12
+CLI00146,Synthetic Investor 0146,Bank,Asia-Pacific,Industrials,AA,73.03,1.27,0.012153,Verified,2026-10-12
+CLI00147,Synthetic Investor 0147,Bank,Europe,Technology,BB,219.47,2.39,0.060076,Verified,2026-10-12
+CLI00148,Synthetic Investor 0148,Bank,Europe,Technology,BBB,310.15,3.63,0.03072,Verified,2026-10-12
+CLI00149,Synthetic Investor 0149,Hedge Fund,Asia-Pacific,Consumer,A,114.27,2.42,0.117455,Verified,2026-10-12
+CLI00150,Synthetic Investor 0150,Pension Fund,North America,Consumer,AA,55.34,4.41,0.062847,Verified,2026-10-12
+CLI00151,Synthetic Investor 0151,Asset Manager,Asia-Pacific,Industrials,AA,365.37,0.97,0.04998,Verified,2026-10-12
+CLI00152,Synthetic Investor 0152,Family Office,Asia-Pacific,Healthcare,A,120.56,0.58,0.07065,Verified,2026-10-12
+CLI00153,Synthetic Investor 0153,Insurance,Europe,Energy,A,134.53,3.0,0.044307,Verified,2026-10-12
+CLI00154,Synthetic Investor 0154,Insurance,North America,Industrials,B,514.07,2.95,0.022813,Verified,2026-10-12
+CLI00155,Synthetic Investor 0155,Insurance,Latin America,Technology,AAA,287.7,2.67,0.029573,Expired,2026-10-12
+CLI00156,Synthetic Investor 0156,Bank,Europe,Industrials,A,105.75,3.68,0.005993,Verified,2026-10-12
+CLI00157,Synthetic Investor 0157,Hedge Fund,Europe,Utilities,AA,68.08,2.48,0.082879,Verified,2026-10-12
+CLI00158,Synthetic Investor 0158,Hedge Fund,Latin America,Energy,CCC,295.92,3.38,0.017107,Verified,2026-10-12
+CLI00159,Synthetic Investor 0159,Hedge Fund,Latin America,Utilities,BBB,51.74,0.8,0.007175,Verified,2026-10-12
+CLI00160,Synthetic Investor 0160,Hedge Fund,Europe,Energy,BBB,183.99,3.74,0.026249,Verified,2026-10-12
+CLI00161,Synthetic Investor 0161,Bank,Europe,Industrials,B,83.8,4.04,0.009246,Verified,2026-10-12
+CLI00162,Synthetic Investor 0162,Insurance,North America,Utilities,BBB,44.59,0.85,0.001432,Verified,2026-10-12
+CLI00163,Synthetic Investor 0163,Hedge Fund,Asia-Pacific,Consumer,BBB,7.7,1.96,0.139816,Verified,2026-10-12
+CLI00164,Synthetic Investor 0164,Pension Fund,Asia-Pacific,Technology,BB,139.52,1.76,0.010129,Verified,2026-10-12
+CLI00165,Synthetic Investor 0165,Family Office,Europe,Utilities,BB,80.41,1.55,0.08213,Verified,2026-10-12
+CLI00166,Synthetic Investor 0166,Bank,Asia-Pacific,Technology,B,222.25,3.25,0.028078,Verified,2026-10-12
+CLI00167,Synthetic Investor 0167,Asset Manager,Asia-Pacific,Consumer,A,749.69,3.58,0.022843,Verified,2026-10-12
+CLI00168,Synthetic Investor 0168,Bank,Asia-Pacific,Technology,CCC,859.48,2.27,0.034034,Verified,2026-10-12
+CLI00169,Synthetic Investor 0169,Hedge Fund,Latin America,Financials,A,171.2,2.3,0.013158,Verified,2026-10-12
+CLI00170,Synthetic Investor 0170,Hedge Fund,Asia-Pacific,Utilities,AA,68.0,0.61,0.021343,Verified,2026-10-12
+CLI00171,Synthetic Investor 0171,Hedge Fund,Asia-Pacific,Consumer,BBB,362.93,0.1,0.070571,Verified,2026-10-12
+CLI00172,Synthetic Investor 0172,Family Office,North America,Technology,AA,658.09,1.41,0.027895,Verified,2026-10-12
+CLI00173,Synthetic Investor 0173,Insurance,North America,Industrials,BBB,219.96,3.1,0.02511,Verified,2026-10-12
+CLI00174,Synthetic Investor 0174,Asset Manager,Asia-Pacific,Consumer,BB,133.79,1.06,0.063508,Pending Review,2026-10-12
+CLI00175,Synthetic Investor 0175,Family Office,Asia-Pacific,Industrials,AA,150.25,3.49,0.030322,Verified,2026-10-12
+CLI00176,Synthetic Investor 0176,Pension Fund,Europe,Consumer,B,79.48,3.07,0.036587,Verified,2026-10-12
+CLI00177,Synthetic Investor 0177,Hedge Fund,North America,Technology,BBB,56.24,2.11,0.086286,Verified,2026-10-12
+CLI00178,Synthetic Investor 0178,Family Office,Latin America,Technology,BBB,3366.15,2.55,0.039646,Verified,2026-10-12
+CLI00179,Synthetic Investor 0179,Bank,Europe,Energy,BBB,159.36,3.3,0.009456,Verified,2026-10-12
+CLI00180,Synthetic Investor 0180,Asset Manager,Asia-Pacific,Utilities,BBB,191.83,2.85,0.01683,Verified,2026-10-12
+CLI00181,Synthetic Investor 0181,Family Office,Latin America,Healthcare,AAA,489.15,2.42,0.041511,Verified,2026-10-12
+CLI00182,Synthetic Investor 0182,Family Office,Europe,Utilities,A,33.12,0.49,0.115311,Verified,2026-10-12
+CLI00183,Synthetic Investor 0183,Pension Fund,Latin America,Consumer,BBB,65.3,1.03,0.005355,Verified,2026-10-12
+CLI00184,Synthetic Investor 0184,Pension Fund,North America,Utilities,BBB,255.3,2.97,0.093864,Verified,2026-10-12
+CLI00185,Synthetic Investor 0185,Bank,Europe,Utilities,BBB,54.22,1.94,0.045523,Verified,2026-10-12
+CLI00186,Synthetic Investor 0186,Family Office,Latin America,Utilities,CCC,50.65,1.39,0.046554,Verified,2026-10-12
+CLI00187,Synthetic Investor 0187,Asset Manager,Asia-Pacific,Energy,B,37.9,4.11,0.011066,Verified,2026-10-12
+CLI00188,Synthetic Investor 0188,Hedge Fund,Asia-Pacific,Energy,AA,249.91,2.88,0.02416,Verified,2026-10-12
+CLI00189,Synthetic Investor 0189,Asset Manager,Europe,Financials,A,135.54,1.72,0.009266,Expired,2026-10-12
+CLI00190,Synthetic Investor 0190,Asset Manager,Europe,Energy,BB,356.6,1.63,0.071032,Verified,2026-10-12
+CLI00191,Synthetic Investor 0191,Hedge Fund,Latin America,Consumer,BBB,179.49,2.39,0.010295,Verified,2026-10-12
+CLI00192,Synthetic Investor 0192,Family Office,Latin America,Industrials,BBB,182.04,3.67,0.065035,Verified,2026-10-12
+CLI00193,Synthetic Investor 0193,Pension Fund,North America,Technology,BB,152.6,3.63,0.025371,Verified,2026-10-12
+CLI00194,Synthetic Investor 0194,Insurance,Europe,Energy,BBB,442.71,3.87,0.008074,Verified,2026-10-12
+CLI00195,Synthetic Investor 0195,Insurance,Asia-Pacific,Consumer,BB,162.67,1.59,0.030322,Verified,2026-10-12
+CLI00196,Synthetic Investor 0196,Asset Manager,North America,Energy,B,350.88,3.39,0.063839,Verified,2026-10-12
+CLI00197,Synthetic Investor 0197,Bank,Europe,Healthcare,CCC,1374.34,2.73,0.002389,Pending Review,2026-10-12
+CLI00198,Synthetic Investor 0198,Pension Fund,Latin America,Utilities,BB,30.46,2.16,0.04591,Verified,2026-10-12
+CLI00199,Synthetic Investor 0199,Asset Manager,North America,Healthcare,AA,169.63,3.63,0.031942,Verified,2026-10-12
+CLI00200,Synthetic Investor 0200,Insurance,Latin America,Consumer,AAA,892.12,1.6,0.002348,Verified,2026-10-12
+CLI00201,Synthetic Investor 0201,Bank,Asia-Pacific,Consumer,BBB,116.38,2.33,0.092445,Verified,2026-10-12
+CLI00202,Synthetic Investor 0202,Pension Fund,Asia-Pacific,Technology,AAA,701.6,3.64,0.019691,Verified,2026-10-12
+CLI00203,Synthetic Investor 0203,Asset Manager,Asia-Pacific,Consumer,CCC,68.73,0.1,0.048085,Verified,2026-10-12
+CLI00204,Synthetic Investor 0204,Bank,Asia-Pacific,Industrials,A,71.22,1.85,0.020374,Verified,2026-10-12
+CLI00205,Synthetic Investor 0205,Family Office,Europe,Consumer,BBB,55.43,1.99,0.072136,Verified,2026-10-12
+CLI00206,Synthetic Investor 0206,Pension Fund,Asia-Pacific,Utilities,BBB,81.59,2.18,0.010338,Verified,2026-10-12
+CLI00207,Synthetic Investor 0207,Pension Fund,Latin America,Energy,A,119.19,4.14,0.007596,Verified,2026-10-12
+CLI00208,Synthetic Investor 0208,Pension Fund,Asia-Pacific,Utilities,B,94.56,2.58,0.013718,Verified,2026-10-12
+CLI00209,Synthetic Investor 0209,Pension Fund,North America,Consumer,BBB,145.21,3.7,0.043586,Verified,2026-10-12
+CLI00210,Synthetic Investor 0210,Pension Fund,North America,Financials,B,36.81,3.89,0.082344,Verified,2026-10-12
+CLI00211,Synthetic Investor 0211,Hedge Fund,North America,Technology,AAA,761.49,2.51,0.030239,Verified,2026-10-12
+CLI00212,Synthetic Investor 0212,Pension Fund,Europe,Energy,BBB,147.53,3.58,0.006549,Verified,2026-10-12
+CLI00213,Synthetic Investor 0213,Bank,North America,Consumer,B,104.99,1.92,0.012136,Verified,2026-10-12
+CLI00214,Synthetic Investor 0214,Pension Fund,North America,Consumer,A,114.37,1.47,0.034832,Verified,2026-10-12
+CLI00215,Synthetic Investor 0215,Family Office,North America,Financials,BBB,54.61,3.59,0.134666,Verified,2026-10-12
+CLI00216,Synthetic Investor 0216,Bank,Latin America,Consumer,BBB,61.1,5.27,0.026507,Verified,2026-10-12
+CLI00217,Synthetic Investor 0217,Insurance,Latin America,Healthcare,BB,181.45,3.45,0.02982,Pending Review,2026-10-12
+CLI00218,Synthetic Investor 0218,Hedge Fund,Europe,Consumer,B,67.55,0.1,0.020389,Verified,2026-10-12
+CLI00219,Synthetic Investor 0219,Asset Manager,Asia-Pacific,Utilities,AA,1224.13,2.83,0.039345,Verified,2026-10-12
+CLI00220,Synthetic Investor 0220,Family Office,Asia-Pacific,Healthcare,AAA,320.09,2.51,0.009801,Verified,2026-10-12
