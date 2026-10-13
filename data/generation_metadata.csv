@@ -1,0 +1,10 @@
+parameter,value
+seed,42
+as_of_date,2026-09-30
+counterparties_count,250
+portfolios_count,100
+trades_count,10000
+investors_count,2000
+market_days,252
+issue_rate,0.015
+synthetic_data_only,True

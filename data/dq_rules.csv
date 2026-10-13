@@ -1,0 +1,13 @@
+rule_id,dataset_name,column_name,rule_type,severity,description
+DQ001,TRADES,trade_id,NOT_NULL,HIGH,Trade ID must be populated
+DQ002,TRADES,trade_id,UNIQUE,HIGH,Trade IDs must be unique
+DQ003,TRADES,counterparty_id,REFERENTIAL_INTEGRITY,HIGH,Counterparty must exist in master data
+DQ004,TRADES,portfolio_id,REFERENTIAL_INTEGRITY,HIGH,Portfolio must exist in portfolio master
+DQ005,TRADES,notional,NON_NEGATIVE,HIGH,Trade notional must be non-negative
+DQ006,TRADES,currency,VALID_CURRENCY,MEDIUM,Trade currency must be supported
+DQ007,TRADES,maturity_date,DATE_ORDER,MEDIUM,Maturity must not precede trade date
+DQ008,COUNTERPARTIES,rating,VALID_ENUM,HIGH,Credit rating must be a supported grade
+DQ009,INVESTORS,kyc_status,VALID_ENUM,HIGH,KYC status must be recognized
+DQ010,MARKET_DATA,close_price,NON_NEGATIVE,HIGH,Market prices must be non-negative
+DQ011,COLLATERAL,haircut,RANGE_0_1,MEDIUM,Collateral haircut must be between zero and one
+DQ012,FX_RATES,fx_rate,POSITIVE,HIGH,FX conversion rates must be positive

@@ -1,0 +1,6 @@
+risk_factor_id,risk_factor_name,risk_factor_type,unit,base_value,stress_up_pct,stress_down_pct,as_of_date
+RF_EQ_001,Equity Market Level,EQUITY,PRICE,100.0,0.2,-0.2,2026-09-30
+RF_IR_001,Interest Rate,INTEREST_RATE,DECIMAL,0.045,0.25,-0.25,2026-09-30
+RF_FX_001,USD/INR Exchange Rate,FX,INR_PER_USD,83.0,0.1,-0.1,2026-09-30
+RF_CR_001,Credit Spread,CREDIT,BASIS_POINTS,120.0,1.0,-0.3,2026-09-30
+RF_CM_001,Commodity Price,COMMODITY,PRICE,75.0,0.3,-0.3,2026-09-30
