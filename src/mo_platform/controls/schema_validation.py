@@ -20,3 +20,143 @@ from typing import Any, Literal, Mapping, Sequence
 import numpy as np
 import pandas as pd
 
+
+# 1. Validation models
+
+Severity = Literal["INFO", "WARNING", "ERROR", "CRITICAL"]
+
+@dataclass(frozen=True)
+class ColumnRule:
+    """Validation requirements for a single column."""
+
+    name: str
+    dtype: str = "string"
+    nullable: bool = False
+    allowed_values: tuple[Any, ...] | None = None
+    minimum: float | None = None
+    maximum: float | None = None
+    strict_minimum: bool = False
+    strict_maximum: bool = False
+
+    # When true, non-null values must be unique within this column.
+    unique: bool = False
+
+
+@dataclass(frozen=True)
+class TableSchema:
+    """Schema and key constraints for a dataset."""
+
+    name: str
+    columns: tuple[ColumnRule, ...]
+    primary_key: tuple[str, ...] = ()
+    allow_extra_columns: bool = True
+
+    @property
+    def column_names(self) -> set[str]:
+        return {column.name for column in self.columns}
+
+    @property
+    def rules_by_name(self) -> dict[str, ColumnRule]:
+        return {column.name: column for column in self.columns}
+
+
+@dataclass(frozen=True)
+class ValidationIssue:
+    """One schema-validation finding."""
+
+    dataset: str
+    rule_id: str
+    severity: Severity
+    message: str
+    column: str | None = None
+    row_indices: tuple[Any, ...] = ()
+    observed_value: Any = None
+
+    def to_dict(self) -> dict[str, Any]:
+        """Return a JSON-friendly representation."""
+        return {
+            "dataset": self.dataset,
+            "rule_id": self.rule_id,
+            "severity": self.severity,
+            "message": self.message,
+            "column": self.column,
+            "row_indices": list(self.row_indices),
+            "observed_value": _safe_value(self.observed_value),}
+
+
+@dataclass
+class ValidationReport:
+    """Aggregated findings for one or more datasets."""
+
+    issues: list[ValidationIssue] = field(default_factory=list)
+    datasets_checked: list[str] = field(default_factory=list)
+    rows_checked: dict[str, int] = field(default_factory=dict)
+
+    def add(self, issue: ValidationIssue) -> None:
+        self.issues.append(issue)
+
+    @property
+    def error_count(self) -> int:
+        return sum(
+            issue.severity in ("ERROR", "CRITICAL")
+            for issue in self.issues)
+
+    @property
+    def warning_count(self) -> int:
+        return sum(
+            issue.severity == "WARNING"
+            for issue in self.issues)
+
+    @property
+    def critical_count(self) -> int:
+        return sum(
+            issue.severity == "CRITICAL"
+            for issue in self.issues)
+
+    @property
+    def passed(self) -> bool:
+        return self.error_count == 0
+
+    def to_dataframe(self) -> pd.DataFrame:
+        """Convert findings to a report suitable for CSV export."""
+        columns = [
+            "dataset",
+            "rule_id",
+            "severity",
+            "message",
+            "column",
+            "row_indices",
+            "observed_value",]
+
+        rows = []
+        for issue in self.issues:
+            record = issue.to_dict()
+            record["row_indices"] = ",".join(
+                str(i) for i in record["row_indices"])
+            record["observed_value"] = str(
+                record["observed_value"])
+            rows.append(record)
+
+        return pd.DataFrame(rows, columns=columns)
+
+    def summary(self) -> dict[str, Any]:
+        """Return aggregate validation statistics."""
+        return {
+            "passed": self.passed,
+            "datasets_checked": len(self.datasets_checked),
+            "rows_checked": sum(self.rows_checked.values()),
+            "issues_total": len(self.issues),
+            "errors": self.error_count,
+            "warnings": self.warning_count,
+            "critical": self.critical_count,}
+
+    def raise_for_errors(self) -> None:
+        """Stop a pipeline when errors or critical issues exist."""
+        if not self.passed:
+            raise SchemaValidationError(
+                f"Schema validation failed: {self.summary()}")
+
+
+class SchemaValidationError(ValueError):
+    """Raised when schema validation blocks a processing pipeline."""
+
