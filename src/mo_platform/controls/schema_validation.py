@@ -160,3 +160,62 @@ class ValidationReport:
 class SchemaValidationError(ValueError):
     """Raised when schema validation blocks a processing pipeline."""
 
+
+# 2. Helper functions
+
+def _safe_value(value: Any) -> Any:
+    """Normalize common Pandas/NumPy values for reporting."""
+    if value is None:
+        return None
+
+    if isinstance(value, (np.integer,)):
+        return int(value)
+
+    if isinstance(value, (np.floating,)):
+        return None if np.isnan(value) else float(value)
+
+    if isinstance(value, (np.bool_,)):
+        return bool(value)
+
+    if isinstance(value, (pd.Timestamp,)):
+        return value.isoformat()
+
+    if isinstance(value, (list, tuple, set)):
+        return [_safe_value(item) for item in value]
+
+    try:
+        if pd.isna(value):
+            return None
+    except (TypeError, ValueError):
+        pass
+
+    if isinstance(value, (str, int, float, bool)):
+        return value
+
+    return str(value)
+
+
+def _sample_indices(
+    mask: pd.Series,
+    maximum: int = 10,) -> tuple[Any, ...]:
+    """Return a bounded set of DataFrame index labels."""
+    return tuple(mask[mask].index[:maximum].tolist())
+
+
+def _make_issue(
+    dataset: str,
+    rule_id: str,
+    message: str,
+    *,
+    severity: Severity = "ERROR",
+    column: str | None = None,
+    row_indices: Sequence[Any] = (),
+    observed_value: Any = None,) -> ValidationIssue:
+    return ValidationIssue(
+        dataset=dataset,
+        rule_id=rule_id,
+        severity=severity,
+        message=message,
+        column=column,
+        row_indices=tuple(row_indices),
+        observed_value=observed_value,)
