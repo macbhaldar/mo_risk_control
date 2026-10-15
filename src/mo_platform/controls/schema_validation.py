@@ -219,3 +219,67 @@ def _make_issue(
         column=column,
         row_indices=tuple(row_indices),
         observed_value=observed_value,)
+
+# 3. Type conversion for validation
+
+def _invalid_type_mask(
+    series: pd.Series,
+    dtype: str,) -> pd.Series:
+    """
+    Identify non-null values that cannot be interpreted as the
+    expected type.
+
+    This validates convertibility without modifying the input.
+    """
+
+    non_null = series.notna()
+
+    if dtype in ("string", "str"):
+        # Strings and object-backed values are accepted as text.
+        return pd.Series(False, index=series.index)
+
+    if dtype in ("integer", "int"):
+        numeric = pd.to_numeric(series, errors="coerce")
+        invalid = non_null & numeric.isna()
+
+        fractional = numeric.notna() & (
+            np.mod(numeric.fillna(0), 1) != 0)
+
+        return invalid | fractional
+
+    if dtype in ("float", "number", "numeric"):
+        numeric = pd.to_numeric(series, errors="coerce")
+        invalid = non_null & numeric.isna()
+
+        finite = pd.Series(
+            np.isfinite(
+                numeric.to_numpy(dtype=float, na_value=np.nan)
+            ),
+            index=series.index,)
+
+        return invalid | (numeric.notna() & ~finite)
+
+    if dtype in ("date", "datetime"):
+        parsed = pd.to_datetime(series, errors="coerce")
+        return non_null & parsed.isna()
+
+    if dtype in ("boolean", "bool"):
+        valid_values = {
+            True, False, 1, 0,
+            "True", "False", "true", "false",
+            "TRUE", "FALSE", "1", "0",}
+        return non_null & ~series.isin(valid_values)
+
+    raise ValueError(
+        f"Unsupported schema dtype '{dtype}'. "
+        "Supported types: string, integer, float, date, boolean.")
+
+
+def _numeric_series(series: pd.Series) -> pd.Series:
+    """Create a temporary numeric representation."""
+    return pd.to_numeric(series, errors="coerce")
+
+
+def _date_series(series: pd.Series) -> pd.Series:
+    """Create a temporary datetime representation."""
+    return pd.to_datetime(series, errors="coerce")
