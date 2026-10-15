@@ -492,3 +492,97 @@ def validate_schema(
                     )
 
     return report
+
+
+# 5. Referential-integrity validation
+
+def validate_foreign_key(
+    child_df: pd.DataFrame,
+    parent_df: pd.DataFrame,
+    *,
+    child_dataset: str,
+    parent_dataset: str,
+    child_columns: Sequence[str],
+    parent_columns: Sequence[str],
+    nullable: bool = False,) -> ValidationReport:
+    """
+    Check whether child key values exist in the parent dataset.
+
+    Supports single-column and composite foreign keys.
+    """
+    if len(child_columns) != len(parent_columns):
+        raise ValueError(
+            "child_columns and parent_columns must have equal lengths.")
+
+    report = ValidationReport(
+        datasets_checked=[child_dataset, parent_dataset],
+        rows_checked={
+            child_dataset: len(child_df),
+            parent_dataset: len(parent_df),},
+            )
+
+    missing_child = set(child_columns) - set(child_df.columns)
+    missing_parent = set(parent_columns) - set(parent_df.columns)
+
+    if missing_child or missing_parent:
+        report.add(
+            _make_issue(
+                child_dataset,
+                "FK_SCHEMA_MISSING_COLUMN",
+                f"Missing foreign-key columns: child={sorted(missing_child)}, "
+                f"parent={sorted(missing_parent)}.",)
+                )
+        return report
+
+    child_keys = child_df[list(child_columns)].copy()
+    parent_keys = parent_df[list(parent_columns)].copy()
+
+    null_mask = child_keys.isna().any(axis=1)
+
+    if nullable and null_mask.any():
+        child_keys = child_keys.loc[~null_mask]
+    elif null_mask.any():
+        report.add(
+            _make_issue(
+                child_dataset,
+                "FK_NULL_VALUE",
+                "Foreign-key columns contain null values.",
+                row_indices=_sample_indices(null_mask),)
+                )
+        child_keys = child_keys.loc[~null_mask]
+
+    # Null parent keys must never satisfy referential integrity.
+    parent_keys = parent_keys.dropna().drop_duplicates()
+
+    # Normalize column names for a safe composite-key merge.
+    parent_keys.columns = [
+        f"_parent_key_{i}"
+        for i in range(len(parent_columns))]
+
+    child_keys.columns = [
+        f"_parent_key_{i}"
+        for i in range(len(child_columns))]
+
+    membership = child_keys.merge(
+        parent_keys,
+        how="left",
+        on=list(parent_keys.columns),
+        indicator=True,)
+
+    missing_mask = membership["_merge"].eq("left_only")
+
+    if missing_mask.any():
+        missing_indices = tuple(
+            child_keys.index[missing_mask][:10].tolist()
+            )
+
+        report.add(
+            _make_issue(
+                child_dataset,
+                "FK_REFERENTIAL_INTEGRITY",
+                f"{int(missing_mask.sum())} row(s) reference "
+                f"unknown keys in '{parent_dataset}'.",
+                row_indices=missing_indices,)
+                )
+
+    return report
