@@ -283,3 +283,212 @@ def _numeric_series(series: pd.Series) -> pd.Series:
 def _date_series(series: pd.Series) -> pd.Series:
     """Create a temporary datetime representation."""
     return pd.to_datetime(series, errors="coerce")
+
+
+# 4. Core schema validation
+
+def validate_schema(
+    df: pd.DataFrame,
+    schema: TableSchema,
+    *,
+    dataset_name: str | None = None,) -> ValidationReport:
+    """
+    Validate a DataFrame against a TableSchema.
+
+    The original DataFrame is not modified.
+
+    Returns:
+        ValidationReport containing schema findings.
+    """
+    if not isinstance(df, pd.DataFrame):
+        raise TypeError("df must be a pandas DataFrame.")
+
+    dataset = dataset_name or schema.name
+    report = ValidationReport(
+        datasets_checked=[dataset],
+        rows_checked={dataset: len(df)},
+        )
+
+    # 4.1 Required columns
+    missing_columns = sorted(schema.column_names - set(df.columns))
+
+    for column in missing_columns:
+        report.add(
+            _make_issue(
+                dataset,
+                "SCHEMA_MISSING_COLUMN",
+                f"Required column '{column}' is missing.",
+                column=column,)
+                )
+
+    # 4.2 Unexpected columns
+    if not schema.allow_extra_columns:
+        unexpected = sorted(set(df.columns) - schema.column_names)
+
+        for column in unexpected:
+            report.add(
+                _make_issue(
+                    dataset,
+                    "SCHEMA_UNEXPECTED_COLUMN",
+                    f"Unexpected column '{column}' is present.",
+                    severity="WARNING",
+                    column=column,)
+                    )
+
+    # 4.3 Column-level rules
+    for rule in schema.columns:
+        if rule.name not in df.columns:
+            # Missing column has already been reported.
+            continue
+
+        series = df[rule.name]
+
+        # Nullability
+        if not rule.nullable:
+            null_mask = series.isna()
+
+            if null_mask.any():
+                report.add(
+                    _make_issue(
+                        dataset,
+                        "SCHEMA_NOT_NULL",
+                        f"Column '{rule.name}' contains "
+                        f"{int(null_mask.sum())} null values.",
+                        column=rule.name,
+                        row_indices=_sample_indices(null_mask),)
+                        )
+
+        # Data type
+        invalid_mask = _invalid_type_mask(series, rule.dtype)
+
+        if invalid_mask.any():
+            report.add(
+                _make_issue(
+                    dataset,
+                    "SCHEMA_INVALID_TYPE",
+                    f"Column '{rule.name}' contains values "
+                    f"that cannot be interpreted as '{rule.dtype}'.",
+                    column=rule.name,
+                    row_indices=_sample_indices(invalid_mask),
+                    )
+                    )
+
+        # Enum / domain validation
+        if rule.allowed_values is not None:
+            enum_mask = (
+                series.notna()
+                & ~series.isin(rule.allowed_values))
+
+            if enum_mask.any():
+                report.add(
+                    _make_issue(
+                        dataset,
+                        "SCHEMA_INVALID_ENUM",
+                        f"Column '{rule.name}' contains values "
+                        "outside its permitted domain.",
+                        column=rule.name,
+                        row_indices=_sample_indices(enum_mask),
+                        observed_value=series[
+                            enum_mask
+                        ].head(5).tolist(),)
+                        )
+
+        # Numeric range validation
+        if rule.dtype in (
+            "integer", "int", "float", "number", "numeric"):
+            numeric = _numeric_series(series)
+
+            if rule.minimum is not None:
+                if rule.strict_minimum:
+                    lower_mask = numeric <= rule.minimum
+                else:
+                    lower_mask = numeric < rule.minimum
+
+                lower_mask = lower_mask.fillna(False)
+
+                if lower_mask.any():
+                    report.add(
+                        _make_issue(
+                            dataset,
+                            "SCHEMA_MINIMUM",
+                            f"Column '{rule.name}' violates "
+                            f"minimum {rule.minimum}.",
+                            column=rule.name,
+                            row_indices=_sample_indices(lower_mask),)
+                            )
+
+            if rule.maximum is not None:
+                if rule.strict_maximum:
+                    upper_mask = numeric >= rule.maximum
+                else:
+                    upper_mask = numeric > rule.maximum
+
+                upper_mask = upper_mask.fillna(False)
+
+                if upper_mask.any():
+                    report.add(
+                        _make_issue(
+                            dataset,
+                            "SCHEMA_MAXIMUM",
+                            f"Column '{rule.name}' violates "
+                            f"maximum {rule.maximum}.",
+                            column=rule.name,
+                            row_indices=_sample_indices(upper_mask),)
+                            )
+
+        # Single-column uniqueness
+        if rule.unique:
+            duplicate_mask = (
+                series.notna()
+                & series.duplicated(keep=False)
+                )
+
+            if duplicate_mask.any():
+                report.add(
+                    _make_issue(
+                        dataset,
+                        "SCHEMA_COLUMN_NOT_UNIQUE",
+                        f"Column '{rule.name}' contains duplicate values.",
+                        column=rule.name,
+                        row_indices=_sample_indices(duplicate_mask),)
+                        )
+
+    # 4.4 Primary-key validation
+    present_key_columns = [
+        column
+        for column in schema.primary_key
+        if column in df.columns]
+
+    if len(present_key_columns) != len(schema.primary_key):
+        report.add(
+            _make_issue(
+                dataset,
+                "SCHEMA_PRIMARY_KEY_MISSING",
+                "One or more primary-key columns are missing.",)
+                )
+    elif schema.primary_key:
+        key_frame = df[list(schema.primary_key)]
+
+        null_key_mask = key_frame.isna().any(axis=1)
+
+        if null_key_mask.any():
+            report.add(
+                _make_issue(
+                    dataset,
+                    "SCHEMA_PRIMARY_KEY_NULL",
+                    "Primary-key fields must not contain null values.",
+                    row_indices=_sample_indices(null_key_mask),)
+                    )
+
+        duplicate_key_mask = key_frame.duplicated(keep=False)
+
+        if duplicate_key_mask.any():
+            report.add(
+                _make_issue(
+                    dataset,
+                    "SCHEMA_PRIMARY_KEY_DUPLICATE",
+                    f"Primary key {schema.primary_key} is not unique.",
+                    row_indices=_sample_indices(duplicate_key_mask),)
+                    )
+
+    return report
