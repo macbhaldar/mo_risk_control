@@ -683,3 +683,283 @@ def validate_positive_values(
     return report
 
 
+# 7. Project schema registry
+
+CURRENCIES = ("USD", "EUR", "GBP", "INR", "JPY", "CHF")
+
+RATINGS = ("AAA", "AA", "A", "BBB", "BB", "B", "CCC")
+
+SCHEMAS: dict[str, TableSchema] = {
+    "counterparties": TableSchema(
+        name="counterparties",
+        primary_key=("counterparty_id",),
+        columns=(
+            ColumnRule("counterparty_id", "string"),
+            ColumnRule("counterparty_name", "string"),
+            ColumnRule(
+                "counterparty_type",
+                "string",
+                allowed_values=(
+                    "BANK", "CORPORATE", "FUND", "SOVEREIGN"),
+                    ),
+            ColumnRule("country", "string"),
+            ColumnRule("sector", "string"),
+            ColumnRule(
+                "rating", "string", allowed_values=RATINGS
+                ),
+            ColumnRule(
+                "probability_of_default",
+                "float",
+                minimum=0,
+                maximum=1,
+                ),
+            ColumnRule(
+                "loss_given_default",
+                "float",
+                minimum=0,
+                maximum=1,
+                ),
+            ColumnRule("annual_revenue", "float", minimum=0),
+            ColumnRule("limit_amount", "float", minimum=0),
+            ColumnRule("onboarding_date", "date"),
+            ColumnRule("is_active", "boolean"),
+            ColumnRule(
+                "currency", "string", allowed_values=CURRENCIES
+                ),
+            ColumnRule("as_of_date", "date"),
+            ),
+            ),
+
+    "portfolios": TableSchema(
+        name="portfolios",
+        primary_key=("portfolio_id",),
+        columns=(
+            ColumnRule("portfolio_id", "string"),
+            ColumnRule("portfolio_name", "string"),
+            ColumnRule("counterparty_id", "string"),
+            ColumnRule("business_unit", "string"),
+            ColumnRule("portfolio_type", "string"),
+            ColumnRule(
+                "base_currency",
+                "string",
+                allowed_values=CURRENCIES,),
+            ColumnRule("risk_owner", "string"),
+            ColumnRule("risk_limit", "float", minimum=0),
+            ColumnRule(
+                "portfolio_status",
+                "string",
+                allowed_values=("ACTIVE", "CLOSED"),),
+            ColumnRule("created_date", "date"),
+            ColumnRule("as_of_date", "date"),
+            ),
+            ),
+
+    "trades": TableSchema(
+        name="trades",
+        primary_key=("trade_id",),
+        columns=(
+            ColumnRule("trade_id", "string"),
+            ColumnRule("portfolio_id", "string"),
+            ColumnRule("counterparty_id", "string"),
+            ColumnRule(
+                "product_type",
+                "string",
+                allowed_values=(
+                    "EQUITY_SPOT",
+                    "BOND",
+                    "FX_FORWARD",
+                    "INTEREST_RATE_SWAP",
+                    "CREDIT_DEFAULT_SWAP",
+                    "COMMODITY_FUTURE",),
+                    ),
+            ColumnRule(
+                "asset_class",
+                "string",
+                allowed_values=(
+                    "EQUITY",
+                    "FIXED_INCOME",
+                    "FX",
+                    "COMMODITY",
+                    "INTEREST_RATE",
+                    "CREDIT",),
+                    ),
+            ColumnRule(
+                "buy_sell",
+                "string",
+                allowed_values=("BUY", "SELL"),
+                ),
+            ColumnRule("trade_date", "date"),
+            ColumnRule("maturity_date", "date"),
+            ColumnRule("notional", "float", minimum=0),
+            ColumnRule(
+                "currency", "string", allowed_values=CURRENCIES),
+            ColumnRule("market_value", "float"),
+            ColumnRule(
+                "settlement_status",
+                "string",
+                allowed_values=("SETTLED", "PENDING", "FAILED"),
+                ),
+            ColumnRule(
+                "trade_status",
+                "string",
+                allowed_values=("BOOKED", "AMENDED", "CANCELLED"),
+                ),
+            ColumnRule("desk", "string"),
+            ColumnRule("trader_id", "string"),
+            ColumnRule("booked_timestamp", "datetime"),
+            ColumnRule("as_of_date", "date"),
+            ),
+            ),
+
+    "investors": TableSchema(
+        name="investors",
+        primary_key=("investor_id",),
+        columns=(
+            ColumnRule("investor_id", "string"),
+            ColumnRule("investor_name", "string"),
+            ColumnRule(
+                "investor_type",
+                "string",
+                allowed_values=(
+                    "INSTITUTIONAL",
+                    "PENSION_FUND",
+                    "INSURANCE",
+                    "ASSET_MANAGER",
+                    "FAMILY_OFFICE",
+                    "RETAIL",),
+                    ),
+            ColumnRule("country", "string"),
+            ColumnRule(
+                "base_currency",
+                "string",
+                allowed_values=CURRENCIES,
+                ),
+            ColumnRule("aum", "float", minimum=0),
+            ColumnRule(
+                "risk_profile",
+                "string",
+                allowed_values=(
+                    "CONSERVATIVE", "MODERATE", "GROWTH", "AGGRESSIVE"),
+                    ),
+            ColumnRule(
+                "kyc_status",
+                "string",
+                allowed_values=("VERIFIED", "PENDING", "EXPIRED"),
+                ),
+            ColumnRule(
+                "investor_status",
+                "string",
+                allowed_values=("ACTIVE", "INACTIVE", "UNDER_REVIEW"),
+                ),
+            ColumnRule("onboarding_date", "date"),
+            ColumnRule("last_review_date", "date"),
+            ColumnRule("record_id", "string", unique=True),
+            ColumnRule("as_of_date", "date"),
+            ),
+            ),
+
+    "collateral": TableSchema(
+        name="collateral",
+        primary_key=("collateral_id",),
+        columns=(
+            ColumnRule("collateral_id", "string"),
+            ColumnRule("trade_id", "string"),
+            ColumnRule("counterparty_id", "string"),
+            ColumnRule(
+                "collateral_type",
+                "string",
+                allowed_values=(
+                    "CASH",
+                    "GOVERNMENT_BOND",
+                    "CORPORATE_BOND",
+                    "EQUITY",
+                    ),
+                    ),
+            ColumnRule(
+                "currency", "string", allowed_values=CURRENCIES),
+            ColumnRule("collateral_value", "float", minimum=0),
+            ColumnRule("haircut", "float", minimum=0, maximum=1),
+            ColumnRule(
+                "eligibility_status",
+                "string",
+                allowed_values=("ELIGIBLE", "INELIGIBLE", "REVIEW"),
+                ),
+            ColumnRule("valuation_date", "date"),
+            ColumnRule("maturity_date", "date"),
+            ),
+            ),
+
+    "market_data": TableSchema(
+        name="market_data",
+        primary_key=("record_id",),
+        columns=(
+            ColumnRule("record_id", "string"),
+            ColumnRule("instrument_id", "string"),
+            ColumnRule("market_date", "date"),
+            ColumnRule(
+                "asset_class",
+                "string",
+                allowed_values=(
+                    "EQUITY",
+                    "FIXED_INCOME",
+                    "FX",
+                    "COMMODITY",
+                    "INTEREST_RATE",
+                    "CREDIT",),
+                    ),
+            ColumnRule(
+                "currency", "string", allowed_values=CURRENCIES),
+            ColumnRule("close_price", "float", minimum=0),
+            # First observation per instrument has no daily return.
+            ColumnRule("daily_return", "float", nullable=True),
+            ColumnRule("source", "string"),
+            ColumnRule(
+                "quality_status",
+                "string",
+                allowed_values=("VALID", "WARNING", "INVALID"),
+                ),
+                ),),
+
+    "fx_rates": TableSchema(
+        name="fx_rates",
+        primary_key=("record_id",),
+        columns=(
+            ColumnRule("record_id", "string"),
+            ColumnRule(
+                "base_currency", "string", allowed_values=CURRENCIES),
+            ColumnRule(
+                "quote_currency", "string", allowed_values=CURRENCIES),
+            ColumnRule("fx_rate", "float", minimum=0, strict_minimum=True),
+            ColumnRule("rate_date", "date"),
+            ColumnRule("source", "string"),
+            ColumnRule(
+                "quality_status",
+                "string",
+                allowed_values=("VALID", "WARNING", "INVALID"),
+                ),
+                ),
+                ),
+
+    "credit_ratings": TableSchema(
+        name="credit_ratings",
+        primary_key=("rating_event_id",),
+        columns=(
+            ColumnRule("rating_event_id", "string"),
+            ColumnRule("counterparty_id", "string"),
+            ColumnRule("rating_date", "date"),
+            ColumnRule("rating_agency", "string"),
+            ColumnRule("rating", "string", allowed_values=RATINGS),
+            ColumnRule(
+                "probability_of_default",
+                "float",
+                minimum=0,
+                maximum=1,),
+            ColumnRule(
+                "outlook",
+                "string",
+                allowed_values=("POSITIVE", "STABLE", "NEGATIVE"),
+                ),
+            ColumnRule("is_current", "boolean"),
+            ),
+            ),
+            }
