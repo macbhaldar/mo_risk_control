@@ -586,3 +586,100 @@ def validate_foreign_key(
                 )
 
     return report
+
+
+# 6. Cross-column business rules
+
+def validate_date_order(
+    df: pd.DataFrame,
+    *,
+    dataset_name: str,
+    start_column: str,
+    end_column: str,
+    allow_equal: bool = True,) -> ValidationReport:
+    """Check that end dates do not precede start dates."""
+    report = ValidationReport(
+        datasets_checked=[dataset_name],
+        rows_checked={dataset_name: len(df)},
+    )
+
+    if start_column not in df.columns or end_column not in df.columns:
+        report.add(
+            _make_issue(
+                dataset_name,
+                "DATE_ORDER_MISSING_COLUMN",
+                f"Required date columns '{start_column}' and/or "
+                f"'{end_column}' are missing.",
+            )
+        )
+        return report
+
+    start = _date_series(df[start_column])
+    end = _date_series(df[end_column])
+
+    valid = start.notna() & end.notna()
+
+    if allow_equal:
+        invalid = valid & (end < start)
+    else:
+        invalid = valid & (end <= start)
+
+    if invalid.any():
+        report.add(
+            _make_issue(
+                dataset_name,
+                "DATE_ORDER_INVALID",
+                f"'{end_column}' must not precede "
+                f"'{start_column}'.",
+                column=end_column,
+                row_indices=_sample_indices(invalid),
+            )
+        )
+
+    return report
+
+
+def validate_positive_values(
+    df: pd.DataFrame,
+    *,
+    dataset_name: str,
+    columns: Sequence[str],
+    allow_zero: bool = False,) -> ValidationReport:
+    """Validate strictly positive or non-negative numeric values."""
+    report = ValidationReport(
+        datasets_checked=[dataset_name],
+        rows_checked={dataset_name: len(df)},)
+
+    for column in columns:
+        if column not in df.columns:
+            report.add(
+                _make_issue(
+                    dataset_name,
+                    "POSITIVE_MISSING_COLUMN",
+                    f"Column '{column}' is missing.",
+                    column=column,))
+        continue
+
+        numeric = _numeric_series(df[column])
+
+        if allow_zero:
+            invalid = numeric < 0
+        else:
+            invalid = numeric <= 0
+
+        invalid = invalid.fillna(False)
+
+        if invalid.any():
+            report.add(
+                _make_issue(
+                    dataset_name,
+                    "POSITIVE_VALUE_INVALID",
+                    f"Column '{column}' contains "
+                    f"{int(invalid.sum())} invalid values.",
+                    column=column,
+                    row_indices=_sample_indices(invalid),)
+                    )
+
+    return report
+
+
