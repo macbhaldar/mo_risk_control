@@ -963,3 +963,185 @@ SCHEMAS: dict[str, TableSchema] = {
             ),
             ),
             }
+
+# 8. Validate a complete platform dataset collection
+
+def validate_platform_data(
+    datasets: Mapping[str, pd.DataFrame],) -> ValidationReport:
+    """
+    Validate all recognized datasets and their relationships.
+
+    Recognized dataset keys:
+        counterparties, portfolios, trades, investors,
+        collateral, market_data, fx_rates, credit_ratings.
+
+    Unknown datasets are ignored so that this function can be
+    extended as new project modules are introduced.
+    """
+    combined = ValidationReport()
+
+    def merge_report(report: ValidationReport) -> None:
+        for issue in report.issues:
+            combined.add(issue)
+
+        for dataset, row_count in report.rows_checked.items():
+            if dataset not in combined.rows_checked:
+                combined.rows_checked[dataset] = row_count
+
+        for dataset in report.datasets_checked:
+            if dataset not in combined.datasets_checked:
+                combined.datasets_checked.append(dataset)
+
+    # Validate each recognized table.
+    for name, schema in SCHEMAS.items():
+        if name not in datasets:
+            continue
+
+        merge_report(
+            validate_schema(
+                datasets[name],
+                schema,
+                dataset_name=name,)
+                )
+
+    # Foreign-key relationships.
+    relationships = [
+        (
+            "portfolios", "counterparties",
+            ("counterparty_id",), ("counterparty_id",),
+        ),
+        (
+            "trades", "portfolios",
+            ("portfolio_id",), ("portfolio_id",),
+        ),
+        (
+            "trades", "counterparties",
+            ("counterparty_id",), ("counterparty_id",),
+        ),
+        (
+            "collateral", "trades",
+            ("trade_id",), ("trade_id",),
+        ),
+        (
+            "collateral", "counterparties",
+            ("counterparty_id",), ("counterparty_id",),
+        ),
+        (
+            "credit_ratings", "counterparties",
+            ("counterparty_id",), ("counterparty_id",),
+        ),
+        ]
+
+    for (
+        child_name,
+        parent_name,
+        child_columns,
+        parent_columns,
+        ) in relationships:
+
+        if child_name not in datasets or parent_name not in datasets:
+            continue
+
+        merge_report(
+            validate_foreign_key(
+                datasets[child_name],
+                datasets[parent_name],
+                child_dataset=child_name,
+                parent_dataset=parent_name,
+                child_columns=child_columns,
+                parent_columns=parent_columns,)
+                )
+
+    # Cross-column date-order checks.
+    if "trades" in datasets:
+        merge_report(
+            validate_date_order(
+                datasets["trades"],
+                dataset_name="trades",
+                start_column="trade_date",
+                end_column="maturity_date",)
+                )
+
+    if "collateral" in datasets:
+        merge_report(
+            validate_date_order(
+                datasets["collateral"],
+                dataset_name="collateral",
+                start_column="valuation_date",
+                end_column="maturity_date",)
+                )
+
+    return combined
+
+# 9. Command-line smoke test
+
+def main() -> int:
+    """
+    Load generated CSVs, run schema validation, and save a report.
+
+    Run from the project root:
+        python -m mo_platform.controls.schema_validation
+
+    Or:
+        python src/mo_platform/controls/schema_validation.py
+    """
+    from pathlib import Path
+
+    data_dir = (
+        Path(__file__).resolve().parents[3]
+        / "data"
+        / "synthetic")
+
+    expected_files = {
+        "counterparties": "counterparties.csv",
+        "portfolios": "portfolios.csv",
+        "trades": "trades.csv",
+        "investors": "investors.csv",
+        "collateral": "collateral.csv",
+        "market_data": "market_data.csv",
+        "fx_rates": "fx_rates.csv",
+        "credit_ratings": "credit_ratings.csv",
+        }
+
+    datasets: dict[str, pd.DataFrame] = {}
+
+    for name, filename in expected_files.items():
+        path = data_dir / filename
+
+        if path.exists():
+            datasets[name] = pd.read_csv(path)
+        else:
+            print(f"WARNING: dataset not found: {path}")
+
+    if not datasets:
+        print(
+            "No datasets found. Run "
+            "'python scripts/generate_synthetic_data.py' first.")
+        return 2
+
+    report = validate_platform_data(datasets)
+
+    reports_dir = data_dir.parents[1] / "reports"
+    reports_dir.mkdir(parents=True, exist_ok=True)
+
+    report_path = reports_dir / "schema_validation_report.csv"
+    report.to_dataframe().to_csv(report_path, index=False)
+
+    print("\nSchema Validation Summary")
+    print("=========================")
+
+    for key, value in report.summary().items():
+        print(f"{key:20s}: {value}")
+
+    print(f"\nDetailed report: {report_path}")
+
+    if not report.passed:
+        print("\nValidation failed. Review the detailed findings.")
+        return 1
+
+    print("\nSchema validation passed.")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
